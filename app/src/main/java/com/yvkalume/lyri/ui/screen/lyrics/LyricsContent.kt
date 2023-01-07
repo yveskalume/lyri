@@ -22,19 +22,18 @@ internal fun LyricsContent(
 		playerPosition: Long
 ) {
 		LazyColumn(
-				modifier = Modifier.fillMaxSize(),
+				modifier = modifier,
 				state = lazyListState,
 				contentPadding = PaddingValues(vertical = 2.dp, horizontal = 20.dp),
 				horizontalAlignment = Alignment.Start,
 		) {
 				items(
 						song.lyrics,
-						key = { it.startTimeStamp }
+						key = { it.startTimeStamp.toMilliseconds() }
 				) { item ->
 						LyricItem(
 								text = item.text,
-								isActive = playerPosition in item.startTimeStamp.toMilliseconds()..
-												item.endTimeStamp.toMilliseconds()
+								isActive = playerPosition >= item.startTimeStamp.toMilliseconds()
 						)
 				}
 		}
